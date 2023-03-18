@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, mixins
 from .models import Product
 from .serializers import ProductSerializer
 
@@ -42,4 +42,6 @@ class ProductDestroyAPIView(generics.DestroyAPIView):
     lookup_field = 'pk'
 
 product_destroy_view = ProductDestroyAPIView.as_view()
+
+
 
