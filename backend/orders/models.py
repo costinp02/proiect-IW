@@ -13,3 +13,4 @@ class Order(models.Model):
     client_id = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=StatusTypes.choices, default=base_status)
     products = models.ManyToManyField(Product)
+
