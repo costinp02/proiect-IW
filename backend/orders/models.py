@@ -14,3 +14,4 @@ class Order(models.Model):
     status = models.CharField(max_length=50, choices=StatusTypes.choices, default=base_status)
     products = models.ManyToManyField(Product)
 
+

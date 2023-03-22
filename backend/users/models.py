@@ -9,10 +9,10 @@ class User(AbstractUser):
         CLIENT = "CLIENT", 'Client'
         PHARMACIST = "PHARMACIST", 'Pharmacist'
 
-    base_role = Role.ADMIN
+    base_role = Role.CLIENT
 
     role = models.CharField(max_length=50,choices=Role.choices, default=base_role)
-    cnp = models.CharField(max_length=10,null=True, blank=True) #can be none for pharmacist, admin
+    cnp = models.CharField(max_length=13,null=True, blank=True) #can be none for pharmacist, admin
 
 
 
