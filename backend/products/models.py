@@ -1,5 +1,5 @@
 from django.db import models
-import datetime
+from datetime import date
 # Create your models here.
 class Product(models.Model):
     CAPSULES = 'CA'
@@ -26,4 +26,4 @@ class Product(models.Model):
     type = models.CharField(max_length=50, choices=MED_TYPE,default=OTHER)
     description = models.TextField(blank=True,null=True)
     stock = models.DecimalField(max_digits=4,decimal_places=0)
-    expiry_date = models.DateField(default=datetime.date.today())
+    expiry_date = models.DateField(default=date.today)
