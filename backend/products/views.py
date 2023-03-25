@@ -1,36 +1,39 @@
-from rest_framework import generics, mixins, permissions, authentication
+from rest_framework import generics
 
 from .models import Product
-from api.permissions import IsPharmacistPermission
 from api.mixins import PharmacistPermissionMixin
 from .serializers import ProductSerializer, ProductDetailSerializer
 
 
+class ProductListAPIView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+product_list_view = ProductListAPIView.as_view()
+
+
 class ProductListCreateAPIView(
     PharmacistPermissionMixin,
-    generics.ListCreateAPIView): #list items and can also create new items (combine create and list)
+    generics.ListCreateAPIView): 
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     def perform_create(self, serializer):
-        # serializer.save(user=self.request.user)
         name = serializer.validated_data.get('name')
         decription = serializer.validated_data.get('description') or None
         if decription is None:
             decription = name
         serializer.save(description=decription)
-        # send a Django signal
 
 product_list_create_view = ProductListCreateAPIView.as_view()
 
 
 class ProductDetailAPIView(
-    PharmacistPermissionMixin,
     generics.RetrieveAPIView):
 
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
-    # lookup_field = 'pk' ??
+    # lookup_field = 'pk' 
 
 product_detail_view = ProductDetailAPIView.as_view()
 
