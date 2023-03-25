@@ -4,29 +4,21 @@ import './index.css';
 import App from './App';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';  //routes = switch
+import Regiser from './components/Register';
+import Login from './components/Login';
+import Logout from './components/Logout'
+import {BrowserRouter as Router, Route, Routes as Switch} from 'react-router-dom';  //routes = switch
 
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   <Router>
-//     <React.StrictMode>
-//     <Header />
-//                   <Routes>
-//                   <Route exact path="/" component={App}/>
-//                   </Routes>
-//                   <Footer />
-    
-//   </React.StrictMode>
-//   </Router>
-  
-// );
 
 const routing = (
               <Router>
                 <React.StrictMode>
                   <Header />
-                  <App/>
+                  <Switch> 
+                    <Route exact path="/" element={<App/>}/>
+                    <Route exact path="/register" element={<Regiser/>}/>
+                    <Route exact path="/login" element={<Login/>}/>
+                  </Switch>
                   <Footer />
                 </React.StrictMode>
               </Router>

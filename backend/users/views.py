@@ -17,13 +17,22 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
     
 user_list_create_view  = UserListCreateAPIView.as_view()
 
+
+class UserCreateAPIView(generics.CreateAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = UserSerializer
+
+    def post(self, request, *args, **kwargs):
+        
+        return super().post(request, *args, **kwargs)
+
+user_create_view = UserCreateAPIView.as_view()
+
+
 class UserDetailAPIView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = 'pk'
-
-
-
 
 user_detail_view = UserDetailAPIView.as_view()
 
