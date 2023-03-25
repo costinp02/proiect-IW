@@ -18,6 +18,7 @@ const routing = (
                     <Route exact path="/" element={<App/>}/>
                     <Route exact path="/register" element={<Regiser/>}/>
                     <Route exact path="/login" element={<Login/>}/>
+                    <Route exact path="/logout" element={<Logout/>}/>
                   </Switch>
                   <Footer />
                 </React.StrictMode>
