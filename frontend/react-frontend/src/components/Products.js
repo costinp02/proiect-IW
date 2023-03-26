@@ -1,11 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const useStyles = makeStyles((theme) => ({
 	cardMedia: {
@@ -20,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
 				? theme.palette.grey[200]
 				: theme.palette.grey[700],
 	},
-	postTitle: {
+	productTitle: {
 		fontSize: '16px',
 		textAlign: 'left',
 	},
-	postText: {
+	productText: {
 		display: 'flex',
 		justifyContent: 'left',
 		alignItems: 'baseline',
@@ -35,57 +37,43 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Products = (props) => {
-	const { posts } = props;
+	const { products: products } = props;
 	const classes = useStyles();
-	if (!posts || posts.length === 0) return <p>Can not find any posts, sorry</p>;
-    console.log( posts['results']);
+	if (!products || products.length === 0) return <p>Can not find any posts, sorry</p>;
 	return (
 		<React.Fragment>
 			<Container maxWidth="md" component="main">
-				<Grid container spacing={5} alignItems="flex-end">
-					{posts['results'].map((post) => {
-						return (
-							// Enterprise card is full width at sm breakpoint
-							<Grid item key={post.id} xs={12} md={4}>
-								<Card className={classes.card}>
-									<CardMedia
-										className={classes.cardMedia}
-										image="https://source.unsplash.com/random"
-										title="Image title"
-									/>
-									<CardContent className={classes.cardContent}>
-										<Typography
-											gutterBottom
-											variant="h6"
-											component="h2"
-											className={classes.postTitle}
-										>
-											{post.name.substr(0, 50)}...
-										</Typography>
-										<div className={classes.postText}>
-											<Typography
-												component="p"
-												color="textPrimary"
-											></Typography>
-											<Typography variant="p" color="textSecondary">
-												{post.description.substr(0, 60)}
-											</Typography>
-										</div>
-                                        <div className={classes.postType}>
-											<Typography
-												component="p"
-												color="textPrimary"
-											></Typography>
-											<Typography variant="p" color="textSecondary">
-												{getProductType(post.type.substr(0, 60))}
-											</Typography>
-										</div>
-									</CardContent>
-								</Card>
-							</Grid>
-						);
-					})}
-				</Grid>
+				<Paper className={classes.root}>
+					<TableContainer className={classes.container}>
+						<Table stickyHeader aria-label="sticky table">
+							<TableHead>
+								<TableRow>
+									<TableCell>Id</TableCell>
+									<TableCell align="left">Type</TableCell>
+									<TableCell align="left">Name</TableCell>
+									<TableCell align="left">Desription</TableCell>
+                                    <TableCell align="left">Expiry Date</TableCell>
+                                    <TableCell align="left">Price</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{products['results'].map((product) => {
+									return (
+										<TableRow>
+											<TableCell component="th" scope="row">{product.id} </TableCell>
+											<TableCell align="left">{getProductType(product.type)}</TableCell>
+											<TableCell align="left">{product.name} </TableCell>
+                                            <TableCell component="th" scope="row">{product.description} </TableCell>
+                                            <TableCell align="left">{product.expiry_date} </TableCell>
+                                            <TableCell align="left">{product.price} </TableCell>                
+										</TableRow>
+									);
+								})}
+								
+							</TableBody>
+						</Table>
+					</TableContainer>
+				</Paper>
 			</Container>
 		</React.Fragment>
 	);

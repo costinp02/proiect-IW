@@ -21,7 +21,7 @@ function App() {
 	return (
 		<div className="App">
 			<h1>Our Products</h1>
-			<PostLoading isLoading={appState.loading} posts={appState.products} />
+			<PostLoading isLoading={appState.loading} products={appState.products} />
 		</div>
 	);
 
